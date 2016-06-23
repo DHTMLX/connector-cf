@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title></title>
+</head>
+	<script src="../../common/dhtmlxscheduler.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../common/dhtmlxscheduler_recurring.js" type="text/javascript" charset="utf-8"></script>
+	
+<link rel="stylesheet" href="../../common/dhtmlxscheduler.css" type="text/css" title="no title" charset="utf-8">
+	<link rel="stylesheet" href="../../common/dhtmlxscheduler_recurring.css" type="text/css" title="no title" charset="utf-8">
+<style type="text/css" media="screen">
+	html, body{
+		margin:0px;
+		padding:0px;
+		height:100%;
+		overflow:hidden;
+	}	
+</style>
+<script type="text/javascript" charset="utf-8">
+	function init() {
+		scheduler.config.xml_date="%Y-%m-%d %H:%i";
+		scheduler.config.details_on_create=true;
+		scheduler.config.details_on_dblclick=true;
+		scheduler.init('scheduler_here',null,"month");
+		scheduler.load("04_recurring_events_connector.cfm?uid="+scheduler.uid());
+		
+		var dp = new dataProcessor("04_recurring_events_connector.cfm");
+		dp.init(scheduler);
+	}
+</script>
+<body onload="init();">
+	<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
+		<div class="dhx_cal_navline">
+			<div class="dhx_cal_prev_button">&nbsp;</div>
+			<div class="dhx_cal_next_button">&nbsp;</div>
+			<div class="dhx_cal_today_button"></div>
+			<div class="dhx_cal_date"></div>
+			<div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+			<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+			<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+		</div>
+		<div class="dhx_cal_header">
+		</div>
+		<div class="dhx_cal_data">
+		</div>		
+	</div>
+<div class='code'><span style="color:#000000; font-size:18px; text-decoration:underline; font-weight:bold;">04_recurring_events_connector.cfm: </span><br/><code><span style='color:#000'><span style='color:#990033'>&lt;cfinclude&#32;template=<span style='color:#0000CC'>"../../config.cfm"</span>&gt;</span><br /><span style='color:#990033'>&lt;cffunction&#32;name=<span style='color:#0000CC'>"delete_related"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfargument&#32;name=<span style='color:#0000CC'>"action"</span>&#32;type=<span style='color:#0000CC'>"any"</span>&#32;required=<span style='color:#0000CC'>"yes"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;var&#32;local&#32;&#32;=&#32;<span style='color:blue'>structNew</span>()</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;local.status&#32;=&#32;ARGUMENTS.action.get_status()</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;local.type&#32;=&#32;ARGUMENTs.action.get_value(<span style='color:#006600'>"rec_type"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;local.pid&#32;=&#32;ARGUMENTS.action.get_value(<span style='color:#006600'>"event_pid"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfif&#32;(local.status&#32;eq&#32;<span style='color:#0000CC'>"deleted"</span>&#32;OR&#32;local.status&#32;eq&#32;<span style='color:#0000CC'>"updated"</span>)&#32;AND&#32;local.type&#32;neq&#32;<span style='color:#0000CC'>""</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler.sql.query(<span style='color:#006600'>"DELETE&#32;FROM&#32;events_rec&#32;WHERE&#32;event_pid="</span>&#32;&amp;&#32;request.scheduler.sql.escape(ARGUMENTS.action.get_id(),<span style='color:#006600'>"event_pid"</span>))</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfif&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfif&#32;local.status&#32;eq&#32;<span style='color:#0000CC'>"deleted"</span>&#32;AND&#32;local.pid&#32;neq&#32;0&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler.sql.query(<span style='color:#006600'>"UPDATE&#32;events_rec&#32;SET&#32;rec_type='none'&#32;WHERE&#32;event_id="</span>&#32;&amp;&#32;request.scheduler.sql.escape(ARGUMENTS.action.get_id(),<span style='color:#006600'>"event_pid"</span>))</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;ARGUMENTS.action.success()</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfif&gt;</span><br /><span style='color:#990033'>&lt;/cffunction&gt;</span><br /><span style='color:#990033'>&lt;cffunction&#32;name=<span style='color:#0000CC'>"insert_related"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfargument&#32;name=<span style='color:#0000CC'>"action"</span>&#32;type=<span style='color:#0000CC'>"any"</span>&#32;required=<span style='color:#0000CC'>"yes"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;var&#32;local&#32;&#32;=&#32;<span style='color:blue'>structNew</span>()</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;local.status&#32;=&#32;ARGUMENTS.action.get_status()</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;local.type&#32;=&#32;ARGUMENTS.action.get_value(<span style='color:#006600'>"rec_type"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfif&#32;local.status&#32;eq&#32;<span style='color:#0000CC'>"inserted"</span>&#32;AND&#32;local.type&#32;eq&#32;<span style='color:#0000CC'>"none"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;ARGUMENTS.action.set_status(<span style='color:#006600'>"deleted"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfif&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;<br /><span style='color:#990033'>&lt;/cffunction&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler&#32;=&#32;<span style='color:blue'>createObject</span>(<span style='color:#006600'>"component"</span>,request.dhtmlxConnectors[<span style='color:#006600'>"scheduler"</span>]).init(request.dhtmlxConnectors[<span style='color:#006600'>"datasource"</span>],request.dhtmlxConnectors[<span style='color:#006600'>"db_type"</span>])</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler.event.attach(<span style='color:#006600'>"beforeProcessing"</span>,delete_related)</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler.event.attach(<span style='color:#006600'>"afterProcessing"</span>,insert_related)</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;request.scheduler.render_table(<span style='color:#006600'>"events_rec"</span>,<span style='color:#006600'>"event_id"</span>,<span style='color:#006600'>"start_date,end_date,text,rec_type,event_pid,event_length"</span>)</span>&gt;</span><br /></span></code><br/></div>
+</body>
+
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--conf
+<sample in_favorites="true">
+	<product version="1.0" edition="std"/>
+	<modifications>
+		<modified date="080205"/>
+	</modifications>
+<sampledescription><![CDATA[ ]]></sampledescription></sample>
+ -->
+<html>
+<head>
+	<title>Dynamic loading</title>
+	<script src="../common/dhtmlx.js" type="text/javascript"></script>
+	<script src="../common/dhtmlxdataview.js" type="text/javascript"></script>
+	<script src="../../codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../codebase/connector.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="STYLESHEET" type="text/css" href="../common/dhtmlxdataview.css">  
+	<style type="text/css" media="screen">
+		body { background-color:#EBEBEB; };
+	</style>
+</head>
+<body>
+	<h1>Dynamic loading</h1>
+	<p>Data is loaded to the DataView on demand</p>
+	
+	<div id="data_container" style="border:1px solid #A4BED4; background-color:white; width:710px;height:392px;"></div>
+	<br>
+	<script>
+		data = new dhtmlXDataView({
+			container:"data_container",
+			type:{
+				template:"<span class='dhx_strong'>{obj.Maintainer}</span>{obj.Package} <span class='dhx_light'>{obj.Version}</span>",
+				height:35
+			}
+		});
+		data.load("02_dynamic_loading.cfm");
+	</script>
+
+<div class='code'><span style="color:#000000; font-size:18px; text-decoration:underline; font-weight:bold;">02_dynamic_loading.cfm: </span><br/><code><span style='color:#000'><span style='color:#990033'>&lt;cfinclude&#32;template=<span style='color:#0000CC'>"../config.cfm"</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data&#32;=&#32;<span style='color:blue'>createObject</span>(<span style='color:#006600'>"component"</span>,request.dhtmlxConnectors[<span style='color:#006600'>"dataview"</span>]).init(request.dhtmlxConnectors[<span style='color:#006600'>"datasource"</span>],request.dhtmlxConnectors[<span style='color:#006600'>"db_type"</span>])</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data.dynamic_loading(50)</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data.render_sql(<span style='color:#006600'>"&#32;SELECT&#32;*&#32;FROM&#32;packages_plain&#32;WHERE&#32;Id&#32;&lt;&#32;1000"</span>,<span style='color:#006600'>"Id"</span>,<span style='color:#006600'>"Package,Version,Maintainer"</span>)</span>&gt;</span><br /></span></code><br/></div>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>DataView</title>
+	<script src="../common/dhtmlx.js" type="text/javascript"></script>
+	<script src="../common/dhtmlxdataview.js" type="text/javascript"></script>
+	<script src="../../codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../codebase/connector.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="STYLESHEET" type="text/css" href="../common/dhtmlxdataview.css">  
+<body>
+	<h1>Initialize object on page</h1>
+
+	<style type="text/css" media="screen">
+		.dhx_dataview_default_item{
+			cursor:pointer;
+		}
+		.dhx_dataview_default_item_selected{
+			color:white;
+			background-color:navy;	
+		}
+	</style>
+	<form style="float:right;">
+		TaskName&nbsp; <input type="text" id="p_name" value="dhtmlxDataView"><br>
+		Start&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="v_name" value="01-01-2010"><br>
+		Duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id="m_name" value=""><br>
+		<input type="button" value="Add &rarr;" onclick='add_data()'>
+		<hr>
+		<input type="button" value="Remove selected &rarr;" onclick='remove_data()'>
+	</form>
+	
+	<div id="data_container" style="width:596px;height:396px;"></div>
+	<script>
+		data = new dhtmlXDataView({
+			container:"data_container",
+			edit:true,
+			type:{
+				template:"{obj.taskName} : {obj.start}<br/>{obj.duration}",
+				template_edit:"<input class='dhx_item_editor' bind='obj.taskName'>",
+				height:40
+			}
+		});
+
+		data.load("04_live_update_connector.cfm");
+
+		var dp = new dataProcessor("04_live_update_connector.cfm");
+		dp.init(data);
+		dp.setAutoUpdate(2000);
+
+
+
+
+	function add_data(argument) {
+			data.add({
+				taskName: document.getElementById("p_name").value,
+				start: document.getElementById("v_name").value,
+				duration: document.getElementById("m_name").value,
+			},0)
+		}
+
+		function remove_data(){
+			data.remove(data.getSelected());
+		}
+	</script>
+	
+
+
+<div class='code'><span style="color:#000000; font-size:18px; text-decoration:underline; font-weight:bold;">04_live_update_connector.cfm: </span><br/><code><span style='color:#000'><span style='color:#990033'>&lt;cfinclude&#32;template=<span style='color:#0000CC'>"../config.cfm"</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data&#32;=&#32;<span style='color:blue'>createObject</span>(<span style='color:#006600'>"component"</span>,request.dhtmlxConnectors[<span style='color:#006600'>"dataview"</span>]).init(request.dhtmlxConnectors[<span style='color:#006600'>"datasource"</span>],request.dhtmlxConnectors[<span style='color:#006600'>"db_type"</span>])</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data.enable_<span style='color:blue'>log</span>(variables,<span style='color:blue'>getCurrentTemplatePath</span>()&#32;&amp;&#32;<span style='color:#006600'>"_debug.log"</span>)</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data.enable_live_update('actions_table')</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;data.render_table(<span style='color:#006600'>"tasks"</span>,<span style='color:#006600'>"taskId"</span>,<span style='color:#006600'>"taskName,duration,start"</span>)</span>&gt;</span><br /></span></code><br/></div>
+</body>
+</html>
+
+
+
+

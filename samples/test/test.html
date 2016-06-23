@@ -1,0 +1,49 @@
+<script src="../common/dhtmlx.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../codebase/connector.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../common/dhtmlx.css" type="text/css" charset="utf-8">
+</head>
+<body>
+<div id="gridbox" width="400px" height="400px" style="background-color:white;overflow:hidden"></div>
+<script>
+
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../common/imgs/");
+	mygrid.setHeader("uid,name");
+	mygrid.setColTypes("edtxt,edtxt");
+	mygrid.setColSorting("connector,connector")
+	mygrid.init();
+	mygrid.loadXML("test.cfm");
+	var dp = new dataProcessor("test.cfm");
+	dp.init(mygrid);
+
+	/*
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../common/imgs/");//path to images required by grid
+	mygrid.setHeader("test,test");
+	mygrid.setColTypes("co,ed");
+	mygrid.setInitWidths("500,330");//set column width in px
+	mygrid.setColAlign("left,left");//set column values align
+	mygrid.init();//initialize grid
+    mygrid.loadXML("test.cfm");
+	var dp = new dataProcessor("test.cfm");
+	dp.init(mygrid);
+	*/
+	/*
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../common/imgs/");
+	mygrid.setHeader("name");
+	mygrid.setColTypes("edtxt");
+	mygrid.setColSorting("connector")
+	mygrid.init();//initialize grid
+    mygrid.loadXML("test.cfm");
+	var dp = new dataProcessor("test.cfm");
+	dp.init(mygrid);
+	*/
+</script>
+</body>
+</html>
+
+
+
+
+

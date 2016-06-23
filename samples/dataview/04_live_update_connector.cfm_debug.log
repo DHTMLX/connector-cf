@@ -1,0 +1,108 @@
+====================================
+Log started, 06/10/2010 05:02:50PM
+====================================
+SQL: 
+SELECT  taskId,taskName,duration,start FROM tasks  
+
+====================================
+Log started, 06/10/2010 05:02:52PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 0 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 187 ms.
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 3234 ms.
+====================================
+Log started, 06/10/2010 05:02:54PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 1 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 219 ms.
+====================================
+Log started, 06/10/2010 05:02:56PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 1 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 156 ms.
+====================================
+Log started, 06/10/2010 05:02:57PM
+====================================
+DataProcessor object initialized: 
+	[1_$SELECTED] = true
+	[1_DURATION] = 21
+	[FIELDNAMES] = 1_ID,1_TASKNAME,1_DURATION,1_START,1_VALUE,1_$SELECTED,1_$TEMPLATE,1_!NATIVEEDITOR_STATUS,IDS
+	[IDS] = 1
+	[1_START] = 2007-02-07 00:00:00.0
+	[1_$TEMPLATE] = null
+	[1_!NATIVEEDITOR_STATUS] = updated
+	[1_TASKNAME] = Version 1.11212121111111111111yuyuyuyusdsds
+	[1_ID] = 1
+	[1_VALUE] = undefined
+
+Row data "1": 
+	[START] = 2007-02-07 00:00:00.0
+	[DURATION] = 21
+	[TASKNAME] = Version 1.11212121111111111111yuyuyuyusdsds
+	[$TEMPLATE] = null
+	[$SELECTED] = true
+	[VALUE] = undefined
+	[!NATIVEEDITOR_STATUS] = updated
+	[ID] = 1
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+SQL: 
+UPDATE tasks SET taskName='Version 1.11212121111111111111yuyuyuyusdsds',duration=21,start={ts '2007-02-07 00:00:00'} WHERE taskId=1
+
+SQL: 
+INSERT INTO actions_table (DATAID, TYPE, USER) VALUES (1, 'updated', '1286373770472')
+
+Edit operation finished: 
+	[1] = DataAction Object = [action:updated, sid:1, tid:1]
+
+Done in 203 ms.
+====================================
+Log started, 06/10/2010 05:02:58PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 1 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 109 ms.
+====================================
+Log started, 06/10/2010 05:03:00PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 1 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 203 ms.
+====================================
+Log started, 06/10/2010 05:03:02PM
+====================================
+SQL: 
+SELECT  * FROM actions_table LEFT OUTER JOIN tasks ON actions_table.DATAID = tasks.taskId WHERE actions_table.ID > 1 AND actions_table.USER <> '1286373770472' 
+
+SQL: 
+SELECT MAX(id) as VERSION FROM actions_table
+
+Done in 172 ms.

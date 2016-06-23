@@ -1,0 +1,1 @@
+The performance and the charsets depend on the way the ODBC is registered in CF Administraion page. For exmaple Native MSAccess doen't have Unicode support. And as for performance: the JDBC driver in Access DB is faster more than in 5 time than native MSAccess driver.

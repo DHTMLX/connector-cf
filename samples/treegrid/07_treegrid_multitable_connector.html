@@ -1,0 +1,34 @@
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<title>For demo purpose only :: &1</title>
+
+
+
+
+<script src="../common/dhtmlx.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../codebase/dhtmlxdataprocessor.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../codebase/connector.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="../common/dhtmlx.css" type="text/css" charset="utf-8">
+</head>
+<body>
+				<div id="gridbox" width="450px" height="550px" style="background-color:white;overflow:hidden"></div>
+<script>
+	mygrid = new dhtmlXGridObject('gridbox');
+	mygrid.setImagePath("../common/imgs/");
+	mygrid.setHeader("Tree, Column A, Column B");
+	mygrid.setInitWidths("200,*,*")
+	mygrid.setColTypes("tree,ed,ed");
+	mygrid.init();
+	mygrid.kidsXmlFile = "07_treegrid_multitable_connector.cfm";
+	mygrid.loadXML("07_treegrid_multitable_connector.cfm");
+</script>
+<input type="button" name="add" value="add row" onClick="var id=mygrid.uid(); mygrid.addRow(id,'', 0); mygrid.showRow(id);">
+<input type="button" name="delete" value="delete row" onClick="mygrid.deleteSelectedRows()">
+<div class='code'><span style="color:#000000; font-size:18px; text-decoration:underline; font-weight:bold;">07_treegrid_multitable_connector.cfm: </span><br/><code><span style='color:#000'><span style='color:#990033'>&lt;cfinclude&#32;template=<span style='color:#0000CC'>"../config.cfm"</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree&#32;=&#32;<span style='color:blue'>createObject</span>(<span style='color:#006600'>"component"</span>,request.dhtmlxConnectors[<span style='color:#006600'>"treegrid_multitable"</span>]).init(request.dhtmlxConnectors[<span style='color:#006600'>"datasource"</span>],request.dhtmlxConnectors[<span style='color:#006600'>"db_type"</span>])</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree.setMaxLevel(3)</span>&gt;</span><br /><span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;level&#32;=&#32;tree.get_level()</span>&gt;</span><br /><span style='color:#990033'>&lt;cfswitch&#32;expression=<span style='color:#0000CC'>"#level#"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfcase&#32;value=<span style='color:#0000CC'>"0"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree.render_table(<span style='color:#006600'>"projects2"</span>,&#32;<span style='color:#006600'>"project_id"</span>,&#32;<span style='color:#006600'>"project_name,&#32;project_dsc"</span>,&#32;<span style='color:#006600'>""</span>,&#32;<span style='color:#006600'>""</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfcase&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfcase&#32;value=<span style='color:#0000CC'>"1"</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree.render_sql(<span style='color:#006600'>"SELECT&#32;teams2.team_id,&#32;teams2.team_name,&#32;project_team2.project_id&#32;FROM&#32;teams2&#32;INNER&#32;JOIN&#32;project_team2&#32;ON&#32;teams2.team_id=project_team2.team_id"</span>,&#32;<span style='color:#006600'>"team_id"</span>,&#32;<span style='color:#006600'>"team_name"</span>,&#32;<span style='color:#006600'>""</span>,&#32;<span style='color:#006600'>"project_id"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfcase&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfcase&#32;value=<span style='color:#0000CC'>"2"</span>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree.render_table(<span style='color:#006600'>"developers2"</span>,&#32;<span style='color:#006600'>"developer_id"</span>,&#32;<span style='color:#006600'>"developer_name,developer_email"</span>,&#32;<span style='color:#006600'>""</span>,&#32;<span style='color:#006600'>"developer_team"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfcase&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfcase&#32;value=<span style='color:#0000CC'>"3"</span>&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;cfset<span style='color:#000000'>&#32;tree.render_table(<span style='color:#006600'>"phones2"</span>,&#32;<span style='color:#006600'>"phone_id"</span>,&#32;<span style='color:#006600'>"phone,phone_type"</span>,&#32;<span style='color:#006600'>""</span>,&#32;<span style='color:#006600'>"phone_developer"</span>)</span>&gt;</span><br />&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:#990033'>&lt;/cfcase&gt;</span><br /><span style='color:#990033'>&lt;/cfswitch&gt;</span>&nbsp;&nbsp;&nbsp;&nbsp;<br /></span></code><br/></div>
+</body>
+</html>
+
+
+
